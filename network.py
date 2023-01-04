@@ -15,13 +15,13 @@ class Network(object):
         self.num_clients = self.config.clients.total
         self.network_type = self.config.network.type
 
-        proc = subprocess.Popen('./waf build', shell=True, stdout=subprocess.PIPE,
+        proc = subprocess.Popen('./ns3 build', shell=True, stdout=subprocess.PIPE,
                                 universal_newlines=True, cwd=PATH)
         proc.wait()
         if proc.returncode != 0:
             exit(-1)
 
-        command = './waf --run "' + PROGRAM + ' --NumClients=' + str(self.num_clients) + ' --NetworkType=' + self.network_type
+        command = './ns3 run "' + PROGRAM + ' --NumClients=' + str(self.num_clients) + ' --NetworkType=' + self.network_type
         command += ' --ModelSize=' + str(self.config.model.size)
         '''print(self.config.network)
         for net in self.config.network:
